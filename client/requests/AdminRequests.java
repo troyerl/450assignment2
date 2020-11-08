@@ -18,30 +18,44 @@ public class AdminRequests extends Requests {
   public void makeRequest(int userChoice) {
     try {
       switch(userChoice) {
+
         // Browse Items
         case 1:
           System.out.println(this.stub.browseItems(this.id));
           break;
+
         // Add Item
         case 2:
           addItem();
           break;
+
         // Update Item
         case 3:
           updateItem();
           break;
+
         // Remove Item
         case 4:
           deleteItem();
           break;
+
         // Add New Admin
         case 5:
+          addUser(true);
           break;
-        // Remove Admin
+
+        // Add New Customer
         case 6:
+          addUser(false);
           break;
-        // Exit
+
+        // Remove customer
         case 7:
+          removeCustomer();
+          break;
+
+        //Exit program
+        case 8:
           System.exit(0);
           break;
         default:
@@ -270,6 +284,54 @@ public class AdminRequests extends Requests {
         }
       } catch (Exception e) {
         System.out.println("\nInvaild type, please try again\n");
+      }
+    }
+  }
+
+  // reads in users input and sends it to backend
+  public void addUser (boolean isAdmin) {
+    ArrayList<String> newUser = new ArrayList<String>();
+    String[] attributes = {"First name", "Last name", "Username", "Password"};
+    String input = "";
+
+    for (int i = 0; i < attributes.length; i++) {
+      System.out.print(attributes[i] + ": ");
+      input = readUserInput();
+      newUser.add(input);
+    }
+
+    try {
+      boolean createUserBool = this.stub.addUser(newUser, isAdmin);
+      
+      if (createUserBool) {
+        System.out.println("\n" + (isAdmin ? "Admin" : "Customer") + " has been created.");
+      } else {
+        System.out.println("\n User with that username already exists, please try again.");
+      }
+
+    } catch(Exception e) {
+      System.out.println("Please input correct choice");
+    }
+  }
+
+
+  // deletes customers
+  public void removeCustomer() {
+    System.out.print("Input customer username that you would like to remove (Type 'Cancel' if you wish to go to the main screen): ");
+    String input = "";
+    input = readUserInput();
+
+    if (!input.trim().toLowerCase().equals("cancel")) {
+      try {
+        boolean deletionCheck = this.stub.removeCustomer(input.trim());
+
+        if (deletionCheck) {
+          System.out.println("\nCustomer has been deleted.");
+        } else {
+          System.out.println("\nError when trying to delete user, please try again.");
+        }
+      } catch (Exception e) {
+        System.out.println(e);
       }
     }
   }

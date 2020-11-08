@@ -44,4 +44,12 @@ public class ConnectionRequestsImpl implements ConnectionRequests {
   public boolean removeItem(String id) {
     return inventoryList.removeItem(id);
   }
+
+  public boolean addUser(ArrayList<String> newUser, boolean isAdmin) {
+    return authentication.addUser(newUser, isAdmin);
+  }
+
+  public boolean removeCustomer(String customerUsername) {
+    return authentication.removeCustomer(customerUsername);
+  }
 } 

@@ -2,6 +2,7 @@ package server;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.ArrayList;
 
 import server.users.*;
 
@@ -74,5 +75,54 @@ public class Auth {
 
   public boolean checkIfAdmin(UUID id) {
     return this.users.get(id) instanceof Admin;
+  }
+
+  public boolean addUser(ArrayList<String> newUser, boolean isAdmin) {
+    User userInfo = null;
+
+    for (UUID i : this.users.keySet()) {
+      if (newUser.get(2).equals(this.users.get(i).getUsername())) {
+        return false;
+      }
+    }
+
+    // checks if id already exists
+    UUID id = UUID.randomUUID();
+    boolean checkIdAvailability = true;
+    while(checkIdAvailability) {
+      userInfo = this.users.get(id);
+      if (userInfo == null) {
+        checkIdAvailability = false;
+      } else {
+        id = UUID.randomUUID();
+      }
+    }
+
+    if (isAdmin) {
+      this.users.put(id, new Admin(newUser.get(0), newUser.get(1), newUser.get(2), newUser.get(3)));
+    } else {
+      this.users.put(id, new Customer(newUser.get(0), newUser.get(1), newUser.get(2), newUser.get(3)));
+    }
+    System.out.println((isAdmin ? "Admin" : "Customer") + " created with ID: " + id);
+    return true;
+  }
+
+  // finds user with specific username and checks if its a customer
+  public boolean removeCustomer(String customerUsername) {
+    User user = null;
+
+    for (UUID i : this.users.keySet()) {
+      user = this.users.get(i);
+      if (customerUsername.equals(user.getUsername())) {
+        if (user instanceof Customer) {
+          this.users.remove(i);
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+
+    return false;
   }
 } 

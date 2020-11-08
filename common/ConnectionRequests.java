@@ -18,4 +18,6 @@ public interface ConnectionRequests extends Remote {
   void updateItem(ArrayList<String> item, String id) throws RemoteException;
   void addItem(ArrayList<String> item) throws RemoteException;
   boolean removeItem(String id) throws RemoteException;
+  boolean addUser(ArrayList<String> newUser, boolean isAdmin) throws RemoteException;
+  boolean removeCustomer(String customerUsername) throws RemoteException;
 } 

@@ -87,14 +87,14 @@ public class Client {
                   break;
             }
 
-            System.out.println("");
             if (id != null) {
+               System.out.println("\nLogin Complete.");
                hasId = true;
             } else {
                if (userChoice == 2) {
-                  System.out.println("Login info incorrect, please try again.");
+                  System.out.println("\nLogin info incorrect, please try again.");
                } else if (userChoice == 3) {
-                  System.out.println("User with that username already exists, please try again.");
+                  System.out.println("\nUser with that username already exists, please try again.");
                }
             }
          } catch (Exception e) {
@@ -110,7 +110,7 @@ public class Client {
    // displays admin screen and sends users choice to admin requests
    public static void adminScreen(ConnectionRequests stub, UUID id) {
       AdminRequests request = new AdminRequests(stub, id);
-      String[] options = {"Browse Items", "Add New Item", "Update Item", "Remove Item", "Add New Admin", "Remove Admin"};
+      String[] options = {"Browse Items", "Add New Item", "Update Item", "Remove Item", "Add New Admin", "Add New Customer", "Remove User"};
       boolean run = true;
       while(run) {
          int choice = menuOptions(options);
