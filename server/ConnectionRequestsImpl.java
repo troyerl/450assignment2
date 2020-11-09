@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import common.ConnectionRequests;
 import server.items.Item;
+import server.users.Customer;
+import server.items.Item;
 
 // Implementing the remote interface 
 public class ConnectionRequestsImpl implements ConnectionRequests {
@@ -51,5 +53,27 @@ public class ConnectionRequestsImpl implements ConnectionRequests {
 
   public boolean removeCustomer(String customerUsername) {
     return authentication.removeCustomer(customerUsername);
+  }
+
+  public boolean addItemToCart(String itemId, ArrayList<String> item, UUID customerId) {
+    inventoryList.updateItemAmount(UUID.fromString(itemId), Integer.parseInt(item.get(1)));
+    authentication.addItemToCart(customerId, item, UUID.fromString(itemId));
+    return true;
+  }
+
+  public String checkout(UUID id) {
+    Customer user = authentication.getCustomer(id);
+    HashMap<UUID,ArrayList<String>> userCart = null;
+    String receipt= "Receipt \n________________________\n";
+    if (user != null) {
+      userCart = user.getCart();
+
+      for (ArrayList<String> item : userCart.values()) {
+        receipt += "Item: " + item.get(0) + "\nAmount: " + item.get(1) + "\nPrice: " + item.get(4) + "\n_______________\n";
+      }
+
+      user.clearCart();
+    }
+    return receipt;
   }
 } 

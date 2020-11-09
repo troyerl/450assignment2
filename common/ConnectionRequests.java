@@ -20,4 +20,6 @@ public interface ConnectionRequests extends Remote {
   boolean removeItem(String id) throws RemoteException;
   boolean addUser(ArrayList<String> newUser, boolean isAdmin) throws RemoteException;
   boolean removeCustomer(String customerUsername) throws RemoteException;
+  boolean addItemToCart(String itemId, ArrayList<String> item, UUID customerId) throws RemoteException;
+  String checkout(UUID id) throws RemoteException;
 } 

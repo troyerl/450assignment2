@@ -207,7 +207,7 @@ public class AdminRequests extends Requests {
     return input;
   }
 
-  public void addItem() {
+  private void addItem() {
     System.out.println("\nAdd New Item\n___________________\n");
     String name = "", amount = "", type = "", description = "", price = "";
     ArrayList<String> newItem = new ArrayList<String>();
@@ -262,7 +262,7 @@ public class AdminRequests extends Requests {
     }
   }
 
-  public void deleteItem() {
+  private void deleteItem() {
     
     boolean deleteCheck = true;
     while(deleteCheck) {
@@ -289,7 +289,7 @@ public class AdminRequests extends Requests {
   }
 
   // reads in users input and sends it to backend
-  public void addUser (boolean isAdmin) {
+  private void addUser (boolean isAdmin) {
     ArrayList<String> newUser = new ArrayList<String>();
     String[] attributes = {"First name", "Last name", "Username", "Password"};
     String input = "";
@@ -316,7 +316,7 @@ public class AdminRequests extends Requests {
 
 
   // deletes customers
-  public void removeCustomer() {
+  private void removeCustomer() {
     System.out.print("Input customer username that you would like to remove (Type 'Cancel' if you wish to go to the main screen): ");
     String input = "";
     input = readUserInput();

@@ -45,7 +45,7 @@ public class Inventory {
     for (UUID i : this.inventory.keySet()) {
       inventoryItem = this.inventory.get(i);
       
-      inventoryString = inventoryString + (isAdmin ? "ID: " + i.toString() + "\n": "") +"Item: " + inventoryItem.getName() + "\nPrice: " + inventoryItem.getPrice() + "\nType: " + inventoryItem.getType() + "\nDescription: " + inventoryItem.getDescription() + "\n___________________________\n";
+      inventoryString = inventoryString + (isAdmin ? "ID: " + i.toString() + "\n": "") +"Item: " + inventoryItem.getName() + "\nAmount: " + inventoryItem.getAmount() + "\nPrice: " + inventoryItem.getPrice() + "\nType: " + inventoryItem.getType() + "\nDescription: " + inventoryItem.getDescription() + "\n___________________________\n";
     }
 
     return inventoryString;
@@ -113,5 +113,10 @@ public class Inventory {
 
     this.inventory.remove(UUID.fromString(id));
     return true;
+  }
+
+  public void updateItemAmount(UUID id, int amount) {
+    Item updateItem = this.inventory.get(id);
+    updateItem.updateAmount(amount);
   }
 } 

@@ -58,4 +58,8 @@ public class Item {
   public void setPrice(Double price) {
     this.price = price;
   }
+
+  public void updateAmount(int subtractAmount) {
+    this.amount -= subtractAmount;
+  }
 } 

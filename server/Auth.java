@@ -125,4 +125,14 @@ public class Auth {
 
     return false;
   }
+
+  public Customer getCustomer(UUID id) {
+    return (Customer) this.users.get(id);
+  }
+
+  public void addItemToCart(UUID customerId, ArrayList<String> item, UUID itemId) {
+    Customer currentUser = (Customer) this.users.get(customerId);
+
+    currentUser.updateItemInCart(itemId, item);
+  }
 } 
